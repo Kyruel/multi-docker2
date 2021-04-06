@@ -5,20 +5,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t Kyruel/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t kyruel/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true Kyruel/react-test npm test
+  - docker run -e CI=true kyruel/react-test npm test
 
 after_success:
-  - docker build -t Kyruel/multi-client ./client
-  - docker build -t Kyruel/multi-nginx ./nginx
-  - docker build -t Kyruel/multi-server ./server
-  - docker build -t Kyruel/multi-worker ./worker
+  - docker build -t kyruel/multi-client ./client
+  - docker build -t kyruel/multi-nginx ./nginx
+  - docker build -t kyruel/multi-server ./server
+  - docker build -t kyruel/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push Kyruel/multi-client
-  - docker push Kyruel/multi-nginx
-  - docker push Kyruel/multi-server
-  - docker push Kyruel/multi-worker
+  - docker push kyruel/multi-client
+  - docker push kyruel/multi-nginx
+  - docker push kyruel/multi-server
+  - docker push kyruel/multi-worker
